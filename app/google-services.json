@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "512113614004",
+    "firebase_url": "https://weather-32dc7.firebaseio.com",
+    "project_id": "weather-32dc7",
+    "storage_bucket": "weather-32dc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512113614004:android:6eeab7e629ca40f4",
+        "android_client_info": {
+          "package_name": "br.com.bossini.fatec_ipi_noite_weather_forecast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512113614004-tjjrgvkivu06drfepa95qdqfc6tfajbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxUMBueKvLi_zqrE2NtY-rvvS_qUtd1Rc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

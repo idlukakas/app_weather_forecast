@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api_key" translatable="false">5f7a342697a5cab88a1dd1636c04d99a</string>
+    <string name="web_service_url" translatable="false">http://api.openweathermap.org/data/2.5/forecast?lang=%s&amp;q=%s&amp;APPID=%s&amp;units=%s</string>
+    <string name="measurement_unit">imperial</string>
+</resources>
