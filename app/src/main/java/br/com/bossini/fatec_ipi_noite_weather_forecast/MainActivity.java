@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> cityAdapter;
     String city;
+
+    private Integer listPos;
+
+    List<String> al = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +58,12 @@ public class MainActivity extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Integer i = 0;
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
                     city = ds.getValue().toString();
                     list.add(city);
+                    al.add(i, ds.getKey());
+                    i++;
                 }
                 cityListView.setAdapter(cityAdapter);
             }
@@ -72,7 +80,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(MainActivity.this, WeatherActivity.class);
-                myIntent.putExtra("city", "São Paulo");
+
+                String val = (String) parent.getItemAtPosition(position);
+
+//                myIntent.putExtra("city", "São Paulo");
+                myIntent.putExtra("city", val);
                 startActivity(myIntent);
             }
         });
@@ -84,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
                 registerForContextMenu( arg0 );
                 openContextMenu( arg0 );
+
+                listPos = pos;
+
                 return true;
             }
         });
@@ -97,11 +112,15 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener((v)->{
             String cidade = locationEditText.
                     getEditableText().toString();
+
+//            String key = ref.push().getKey();
+
             DatabaseReference tasksRef = ref.push();
 
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    tasksRef.setValue(cidade);
                     tasksRef.setValue(cidade);
                     list.add(cidade);
                     Toast.makeText(MainActivity.this,"Data inserted...", Toast.LENGTH_LONG).show();
@@ -125,20 +144,12 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        switch(item.getItemId()) {
-//            case R.id.action_details:
-//                //some code
-//                return true;
-//            case R.id.action_share:
-//                //some code
-//                return true;
-//            case R.id.action_del:
-//                //enter code here`
-//                return true;
-//            default:
-//                return super.onContextItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String itemCity = cityAdapter.getItem(listPos);
+        cityAdapter.remove(itemCity);
+        cityAdapter.notifyDataSetChanged();
+//        ref.child(al.get(listPos)).removeValue();
+        return true;
+    }
 }
